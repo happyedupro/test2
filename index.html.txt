@@ -1,0 +1,60 @@
+index.html:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>땅따먹기 게임</title>
+</head>
+<body>
+    <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <script src="game.js"></script>
+</body>
+</html>
+styles.css:
+
+canvas {
+    border: 1px solid black;
+}
+game.js:
+
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+const gridSize = 10;
+const cellSize = canvas.width / gridSize;
+
+const gameBoard = [];
+
+for (let i = 0; i < gridSize; i++) {
+    gameBoard[i] = [];
+    for (let j = 0; j < gridSize; j++) {
+        gameBoard[i][j] = 0;
+    }
+}
+
+function drawBoard() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < gridSize; i++) {
+        for (let j = 0; j < gridSize; j++) {
+            const color = gameBoard[i][j] === 1 ? "black" : "white";
+            ctx.fillStyle = color;
+            ctx.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
+        }
+    }
+}
+
+function updateGameBoard() {
+    // 게임 논리 구현
+}
+
+function gameLoop() {
+    updateGameBoard();
+    drawBoard();
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
